@@ -19,12 +19,23 @@ Example
 		public class PagePerfDriverTest
 		{
 			private PagePerfFirefoxDriver driver = null;
+			
+			[SetUp]
+			public void SetUp()
+			{
+				driver =  new PagePerfFirefoxDriver("theautomatedtester");
+			}
+
+			[TearDown]
+			public void TearDown()
+			{
+				driver.Quit()
+			}
+
 			[Test]
 			public void ShouldLoadDriverAndCreateAHarFile()
 			{
-				driver =  new PagePerfFirefoxDriver("theautomatedtester");
 				driver.Navigate().GoToUrl("http://www.theautomatedtester.co.uk/");
-				driver.Quit();
 			} 
 		}
 	}
