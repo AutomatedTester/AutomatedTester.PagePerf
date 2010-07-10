@@ -1,17 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using Newtonsoft.Json;
 
 namespace AutomatedTester.PagePerf
 {
-    public static class Reporter
+    static class Reporter
     {
         private static XmlNode node;
         private static Dictionary<string,object> breakDown = new Dictionary<string, object>();
 
-        public static void Process(string harContents)
+        public static void Process(string testId,string pageId,string profileDir)
+        {
+            var harFile = string.Empty;
+            var query =
+                from file in Directory.GetFiles(profileDir, "*.har")
+                where file.Contains(testId)
+                select file;
+
+            foreach (var entry in query)
+            {
+                harFile = entry;
+            }
+
+            var allText = File.ReadAllText(harFile);
+            File.Delete(harFile);
+            ProcessHar(allText);
+        }
+
+        private static void ProcessHar(string harContents)
         {
             node = JsonToXml(harContents);
             XmlNodeList responses = node.SelectNodes("//entries/response");            

@@ -31,24 +31,22 @@ namespace AutomatedTester.PagePerf
             this.testId = testId;
         }
 
+        public void Process(string pageId)
+        {
+            Reporter.Process(testId, pageId, ProfileDir);
+        }
+
         public void Quit()
         {
             Navigate().GoToUrl("http://example.com");
             Thread.Sleep(500);
-            var harFile = string.Empty;
-            var query =
-                from file in Directory.GetFiles(base.profile.ProfileDirectory + "/firebug/netexport/logs/", "*.har")
-                where file.Contains(testId)
-                select file;
-
-            foreach (var entry in query)
-            {
-                harFile = entry;
-            }
-            
-            var allText = File.ReadAllText(harFile);
-            Reporter.Process(allText);
+            Reporter.Process(testId,"", ProfileDir);
             base.Quit();
+        }
+
+        private string ProfileDir
+        {
+            get { return base.profile.ProfileDirectory + "/firebug/netexport/logs/"; }
         }
 
         private static FirefoxProfile UpdateProfile(FirefoxProfile firefoxProfile)
