@@ -35,16 +35,18 @@
     <Reference Include="Ionic.Zip.Reduced">
       <HintPath>..\..\selenium2\build\Win32\Debug\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json.Net20">
-      <HintPath>..\..\selenium2\build\Win32\Debug\Newtonsoft.Json.Net20.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebDriver.Chrome">
+      <HintPath>..\..\selenium2\build\Win32\Debug\WebDriver.Chrome.dll</HintPath>
+    </Reference>
     <Reference Include="WebDriver.Common">
       <HintPath>..\..\selenium2\build\Win32\Debug\WebDriver.Common.dll</HintPath>
     </Reference>
@@ -60,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="PagePerfFirefoxDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporter.cs" />
