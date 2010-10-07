@@ -46,8 +46,11 @@ namespace AutomatedTester.PagePerf
         }
         #endregion
 
+        #region properties
         public string TestId { get; set; }
+        #endregion
 
+        #region public methods
         public void Process(string pageId)
         {
             Reporter.Process(TestId, pageId, ProfileDir);
@@ -55,15 +58,31 @@ namespace AutomatedTester.PagePerf
 
         public new void Quit()
         {
-            Navigate().GoToUrl("http://example.com");
-            Thread.Sleep(500);
-            Reporter.Process(TestId,"", ProfileDir);
+            QuitAndCloseBrowser(true);
+        }
+
+        public void Quit(bool process)
+        {
+            QuitAndCloseBrowser(false);
+        }
+        #endregion
+
+        #region private methods
+        private void QuitAndCloseBrowser(bool process)
+        {
+            if (process)
+            {
+                Navigate().GoToUrl("http://example.com");
+                Thread.Sleep(500);
+                Reporter.Process(TestId, "", ProfileDir);    
+            }
+
             base.Quit();
         }
 
         private string ProfileDir
         {
-            get { return Profile.ProfileDirectory + "/firebug/netexport/logs/"; }
+            get { return Profile.ProfileDirectory + "\\firebug\\netexport\\logs\\"; }
         }
 
         private static FirefoxProfile UpdateProfile(FirefoxProfile firefoxProfile)
@@ -80,5 +99,6 @@ namespace AutomatedTester.PagePerf
 
             return firefoxProfile;
         }
+        #endregion
     }
 }
