@@ -32,12 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\..\selenium2\build\Win32\Debug\Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>..\ThirdParty\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json.Net20">
-      <HintPath>..\..\selenium2\build\Win32\Debug\Newtonsoft.Json.Net20.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdParty\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,19 +47,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WebDriver.Chrome">
-      <HintPath>..\..\selenium2\build\Win32\Debug\WebDriver.Chrome.dll</HintPath>
+      <HintPath>..\ThirdParty\WebDriver.Chrome.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Common">
-      <HintPath>..\..\selenium2\build\Win32\Debug\WebDriver.Common.dll</HintPath>
+      <HintPath>..\ThirdParty\WebDriver.Common.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Firefox">
-      <HintPath>..\..\selenium2\build\Win32\Debug\WebDriver.Firefox.dll</HintPath>
+      <HintPath>..\ThirdParty\WebDriver.Firefox.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Remote">
-      <HintPath>..\..\selenium2\build\Win32\Debug\WebDriver.Remote.dll</HintPath>
+      <HintPath>..\ThirdParty\WebDriver.Remote.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Remote.Common">
-      <HintPath>..\..\selenium2\build\Win32\Debug\WebDriver.Remote.Common.dll</HintPath>
+      <HintPath>..\ThirdParty\WebDriver.Remote.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

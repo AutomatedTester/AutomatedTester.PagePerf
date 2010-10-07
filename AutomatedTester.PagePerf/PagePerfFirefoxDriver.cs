@@ -21,42 +21,49 @@ namespace AutomatedTester.PagePerf
 {
     public class PagePerfFirefoxDriver : FirefoxDriver
     {
-        private string testId = string.Empty;
+        #region Constructors
+        public PagePerfFirefoxDriver()
+            : base(UpdateProfile(new FirefoxProfile()))
+        {
+        }
 
         public PagePerfFirefoxDriver(string testId) 
             : base(UpdateProfile(new FirefoxProfile()))
         {
-            this.testId = testId;
+            TestId = testId;
         }
 
         public PagePerfFirefoxDriver(string testId, FirefoxProfile profile) 
             : base(UpdateProfile(profile))
         {
-            this.testId = testId;
+            TestId = testId;
         }
 
         public PagePerfFirefoxDriver(string testId, FirefoxBinary binary, FirefoxProfile profile)
             : base(binary,UpdateProfile(profile))
         {
-            this.testId = testId;
+            TestId = testId;
         }
+        #endregion
+
+        public string TestId { get; set; }
 
         public void Process(string pageId)
         {
-            Reporter.Process(testId, pageId, ProfileDir);
+            Reporter.Process(TestId, pageId, ProfileDir);
         }
 
-        public void Quit()
+        public new void Quit()
         {
             Navigate().GoToUrl("http://example.com");
             Thread.Sleep(500);
-            Reporter.Process(testId,"", ProfileDir);
+            Reporter.Process(TestId,"", ProfileDir);
             base.Quit();
         }
 
         private string ProfileDir
         {
-            get { return base.profile.ProfileDirectory + "/firebug/netexport/logs/"; }
+            get { return Profile.ProfileDirectory + "/firebug/netexport/logs/"; }
         }
 
         private static FirefoxProfile UpdateProfile(FirefoxProfile firefoxProfile)
