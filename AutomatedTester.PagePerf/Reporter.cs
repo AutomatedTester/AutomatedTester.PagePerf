@@ -16,8 +16,11 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using Newtonsoft.Json;
 
@@ -41,9 +44,38 @@ namespace AutomatedTester.PagePerf
                 harFile = entry;
             }
 
+            Console.Write(RunPageSpeedScoring(harFile));
             var allText = File.ReadAllText(harFile);
             File.Delete(harFile);
             ProcessHar(allText);
+        }
+
+        private static string RunPageSpeedScoring(string harFile)
+        {
+            Process pageSpeedApp = new Process();
+            pageSpeedApp.StartInfo.FileName = @"har_to_pagespeed.exe";
+            pageSpeedApp.StartInfo.Arguments = harFile;
+            pageSpeedApp.StartInfo.UseShellExecute = false;
+            pageSpeedApp.StartInfo.RedirectStandardOutput = true;
+            pageSpeedApp.Start();
+
+            string results = pageSpeedApp.StandardOutput.ReadToEnd();
+            pageSpeedApp.WaitForExit(2000);
+
+            return FormatPageSpeedScore(results);
+        }
+
+        private static string FormatPageSpeedScore(string results)
+        {
+            StringBuilder score = new StringBuilder();
+            Regex scores = new Regex(@"(_.*_\s+\(.*\))");
+            MatchCollection matches = scores.Matches(results);
+            foreach (var match in matches)
+            {
+                score.AppendLine(match.ToString().Replace('_', ' '));
+            }
+
+            return score.ToString();
         }
 
         private static void ProcessHar(string harContents)
