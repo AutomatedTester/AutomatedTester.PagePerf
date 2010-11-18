@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using System.IO;
 using System.Threading;
 using OpenQA.Selenium.Firefox;
 
@@ -82,7 +83,10 @@ namespace AutomatedTester.PagePerf
 
         private string ProfileDir
         {
-            get { return Profile.ProfileDirectory + "\\firebug\\netexport\\logs\\"; }
+            get {
+                return Profile.ProfileDirectory +
+                       string.Concat(Path.DirectorySeparatorChar, "firebug", Path.DirectorySeparatorChar, "netexport",
+                                     Path.DirectorySeparatorChar, "logs", Path.DirectorySeparatorChar); }
         }
 
         private static FirefoxProfile UpdateProfile(FirefoxProfile firefoxProfile)

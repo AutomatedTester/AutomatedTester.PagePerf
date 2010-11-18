@@ -47,7 +47,7 @@ namespace AutomatedTester.PagePerf
             Console.Write(RunPageSpeedScoring(harFile));
             var allText = File.ReadAllText(harFile);
             File.Delete(harFile);
-            ProcessHar(allText);
+           // ProcessHar(allText);
         }
 
         private static string RunPageSpeedScoring(string harFile)
@@ -56,13 +56,15 @@ namespace AutomatedTester.PagePerf
             pageSpeedApp.StartInfo.FileName = @"har_to_pagespeed.exe";
             pageSpeedApp.StartInfo.Arguments = harFile;
             pageSpeedApp.StartInfo.UseShellExecute = false;
-            pageSpeedApp.StartInfo.RedirectStandardOutput = true;
+            //pageSpeedApp.StartInfo.RedirectStandardOutput = true;
+            pageSpeedApp.StartInfo.RedirectStandardError = true;
             pageSpeedApp.Start();
-
-            string results = pageSpeedApp.StandardOutput.ReadToEnd();
+            //pageSpeedApp.BeginErrorReadLine();
+            Console.Write(pageSpeedApp.StandardError.ReadToEnd());
+            //string results = pageSpeedApp.StandardOutput.ReadToEnd();
             pageSpeedApp.WaitForExit(2000);
 
-            return FormatPageSpeedScore(results);
+            return FormatPageSpeedScore("results");
         }
 
         private static string FormatPageSpeedScore(string results)
@@ -89,40 +91,6 @@ namespace AutomatedTester.PagePerf
 
             // Writing HAR file just for debugging 
             File.WriteAllText(@"c:\development\har.xml", node.OuterXml.ToString());
-        }
-
-        private static int TotalSizeOfPage()
-        {
-            XmlNodeList bodysizes = node.SelectNodes("//entries/response/bodySize");
-            int totalSize = 0;
-            foreach (XmlNode size in bodysizes)
-            {
-                int itemSize = (Int32.Parse(size.InnerText));
-                if (itemSize > 0)
-                {
-                    totalSize += itemSize;
-                }
-            }
-
-            XmlNodeList headersizes = node.SelectNodes("//entries/response/headersSize");
-            foreach (XmlNode size in headersizes)
-            {
-                int itemSize = (Int32.Parse(size.InnerText));
-                if (itemSize > 0)
-                {
-                    totalSize += itemSize;
-                }
-            }
-
-            return totalSize/1024;
-        }
-
-        private static double GetLoadTimes()
-        {
-            XmlNode time = node.SelectSingleNode("//onLoad");
-            double loadTimes = Int32.Parse(time.InnerText);
-
-            return loadTimes/1000;
         }
 
         private static XmlNode JsonToXml(string harContents)
