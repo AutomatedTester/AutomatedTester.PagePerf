@@ -33,13 +33,11 @@ namespace AutomatedTester.PagePerf
 
         public static void Process(string pageId,string profileDir)
         {
-            var harFile = string.Empty;
             var files = Directory.GetFiles(profileDir, "*.har");
 
             foreach (var file in files)
             {
                 Console.Write(RunPageSpeedScoring(file));
-                File.Copy(file,@"C:\development\myhar.xml");
                 File.Delete(file);
             }
         }
@@ -50,15 +48,12 @@ namespace AutomatedTester.PagePerf
             pageSpeedApp.StartInfo.FileName = @"har_to_pagespeed.exe";
             pageSpeedApp.StartInfo.Arguments = harFile;
             pageSpeedApp.StartInfo.UseShellExecute = false;
-            //pageSpeedApp.StartInfo.RedirectStandardOutput = true;
-            pageSpeedApp.StartInfo.RedirectStandardError = true;
+            pageSpeedApp.StartInfo.RedirectStandardOutput = true;
             pageSpeedApp.Start();
-            //pageSpeedApp.BeginErrorReadLine();
-            Console.Write(pageSpeedApp.StandardError.ReadToEnd());
-            //string results = pageSpeedApp.StandardOutput.ReadToEnd();
+            string results = pageSpeedApp.StandardOutput.ReadToEnd();
             pageSpeedApp.WaitForExit(2000);
 
-            return FormatPageSpeedScore("results");
+            return FormatPageSpeedScore(results);
         }
 
         private static string FormatPageSpeedScore(string results)
@@ -72,14 +67,6 @@ namespace AutomatedTester.PagePerf
             }
 
             return score.ToString();
-        }
-
-        private static void ProcessHar(string harContents)
-        {
-            node = JsonToXml(harContents);
-
-            // Writing HAR file just for debugging 
-            File.WriteAllText(@"c:\development\har.xml", node.OuterXml.ToString());
         }
 
         private static XmlNode JsonToXml(string harContents)
