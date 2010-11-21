@@ -1,0 +1,6 @@
+[1008/100653:ERROR:http_archive.cc(185)] "status" field must be a number.
+[1121/100228:ERROR:http_archive.cc(185)] "status" field must be a number.
+[1121/100413:ERROR:http_archive.cc(185)] "status" field must be a number.
+[1121/101003:WARNING:pagespeed_input.cc(52)] Ignoring duplicate AddResource for resource at "http://edge.sharethis.com/share4x/index.7dbd8c2c4a2160efef50761a91021817.html#init/publisher=ae20fc33-ba5b-4c51-b007-ca0336ac63fc/type=website/jsref=/sessionID=1290118885972.81153/fpc=6f69f6a-12c6113f254-59ba65c1-1/pUrl=http%253A%252F%252Fwww.theautomatedtester.co.uk%252F".
+[1121/101513:WARNING:pagespeed_input.cc(52)] Ignoring duplicate AddResource for resource at "http://edge.sharethis.com/share4x/index.7dbd8c2c4a2160efef50761a91021817.html#init/publisher=ae20fc33-ba5b-4c51-b007-ca0336ac63fc/type=website/jsref=/sessionID=1290334499924.70533/fpc=6f69f6a-12c6dedf454-3cd74b08-1/pUrl=http%253A%252F%252Fwww.theautomatedtester.co.uk%252F".
+[1121/102325:ERROR:http_archive.cc(59)] Top-level JSON value must be an object.

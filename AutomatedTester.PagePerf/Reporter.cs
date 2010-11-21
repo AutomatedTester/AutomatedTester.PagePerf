@@ -31,23 +31,17 @@ namespace AutomatedTester.PagePerf
         private static XmlNode node;
         private static Dictionary<string,object> breakDown = new Dictionary<string, object>();
 
-        public static void Process(string testId,string pageId,string profileDir)
+        public static void Process(string pageId,string profileDir)
         {
             var harFile = string.Empty;
-            var query =
-                from file in Directory.GetFiles(profileDir, "*.har")
-                where file.Contains(testId)
-                select file;
+            var files = Directory.GetFiles(profileDir, "*.har");
 
-            foreach (var entry in query)
+            foreach (var file in files)
             {
-                harFile = entry;
+                Console.Write(RunPageSpeedScoring(file));
+                File.Copy(file,@"C:\development\myhar.xml");
+                File.Delete(file);
             }
-
-            Console.Write(RunPageSpeedScoring(harFile));
-            var allText = File.ReadAllText(harFile);
-            File.Delete(harFile);
-           // ProcessHar(allText);
         }
 
         private static string RunPageSpeedScoring(string harFile)
@@ -83,11 +77,6 @@ namespace AutomatedTester.PagePerf
         private static void ProcessHar(string harContents)
         {
             node = JsonToXml(harContents);
-            XmlNodeList responses = node.SelectNodes("//entries/response");            
-            breakDown["responsecount"] = responses.Count;
-            breakDown["loadtimes"] = GetLoadTimes();
-
-            breakDown["totalSizeOfPage"] = TotalSizeOfPage();
 
             // Writing HAR file just for debugging 
             File.WriteAllText(@"c:\development\har.xml", node.OuterXml.ToString());

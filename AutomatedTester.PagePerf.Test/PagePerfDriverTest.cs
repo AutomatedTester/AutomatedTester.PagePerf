@@ -27,7 +27,7 @@ namespace AutomatedTester.PagePerf.Test
         [Test]
         public void ShouldLoadDriverAndCreateAHarFile()
         {
-            driver =  new PagePerfFirefoxDriver("theautomatedtester");
+            driver =  new PagePerfFirefoxDriver();
             driver.Navigate().GoToUrl("http://www.theautomatedtester.co.uk/");
             driver.Quit();
         } 

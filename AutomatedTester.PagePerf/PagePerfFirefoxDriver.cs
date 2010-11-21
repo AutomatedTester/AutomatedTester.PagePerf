@@ -28,33 +28,23 @@ namespace AutomatedTester.PagePerf
         {
         }
 
-        public PagePerfFirefoxDriver(string testId) 
-            : base(UpdateProfile(new FirefoxProfile()))
-        {
-            TestId = testId;
-        }
 
-        public PagePerfFirefoxDriver(string testId, FirefoxProfile profile) 
+        public PagePerfFirefoxDriver(FirefoxProfile profile) 
             : base(UpdateProfile(profile))
         {
-            TestId = testId;
         }
 
-        public PagePerfFirefoxDriver(string testId, FirefoxBinary binary, FirefoxProfile profile)
+        public PagePerfFirefoxDriver(FirefoxBinary binary, FirefoxProfile profile)
             : base(binary,UpdateProfile(profile))
         {
-            TestId = testId;
         }
         #endregion
 
-        #region properties
-        public string TestId { get; set; }
-        #endregion
 
         #region public methods
         public void Process(string pageId)
         {
-            Reporter.Process(TestId, pageId, ProfileDir);
+            Reporter.Process(pageId, ProfileDir);
         }
 
         public new void Quit()
@@ -75,7 +65,7 @@ namespace AutomatedTester.PagePerf
             {
                 Navigate().GoToUrl("http://example.com");
                 Thread.Sleep(500);
-                Reporter.Process(TestId, "", ProfileDir);    
+                Reporter.Process("", ProfileDir);    
             }
 
             base.Quit();
