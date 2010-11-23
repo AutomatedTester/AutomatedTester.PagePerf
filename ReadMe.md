@@ -23,7 +23,7 @@ Example
 			[SetUp]
 			public void SetUp()
 			{
-				driver =  new PagePerfFirefoxDriver("theautomatedtester");
+				driver =  new PagePerfFirefoxDriver();
 			}
 
 			[TearDown]
