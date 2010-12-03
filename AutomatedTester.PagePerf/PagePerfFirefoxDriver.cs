@@ -81,15 +81,26 @@ namespace AutomatedTester.PagePerf
 
         private static FirefoxProfile UpdateProfile(FirefoxProfile firefoxProfile)
         {
-            firefoxProfile.AddExtension("firebug-1.6X.0a7.xpi");
-            firefoxProfile.AddExtension("netExport-0.7b13-mob.xpi");
-            firefoxProfile.AddExtension("fireStarter-0.1.a5.xpi");
-            firefoxProfile.SetPreference("extensions.firebug.netexport.autoExportActive", true);
-            firefoxProfile.SetPreference("extensions.firebug.DBG_NETEXPORT", true);
+            firefoxProfile.AddExtension("firebug-1.6.0.xpi");
+            firefoxProfile.SetPreference("extensions.firebug.currentVersion", "9.99");    // don't display firstrun
+            firefoxProfile.SetPreference("extensions.firebug.DBG_NETEXPORT", false);
             firefoxProfile.SetPreference("extensions.firebug.onByDefault", true);
-            firefoxProfile.SetPreference("extensions.firebug.defaultPanelName", "net");
+            //firefoxProfile.SetPreference("extensions.firebug.defaultPanelName", "net");  //needed?
             firefoxProfile.SetPreference("extensions.firebug.net.enableSites", true);
-            firefoxProfile.SetPreference("extensions.firebug.previousPlacement", 1);
+            //firefoxProfile.SetPreference("extensions.firebug.previousPlacement", 1);  // neeeded?
+
+
+            firefoxProfile.AddExtension("fireStarter-0.1.a5.xpi");
+            firefoxProfile.AddExtension("netExport-0.8b9.xpi");
+            firefoxProfile.SetPreference("extensions.firebug.netexport.alwaysEnableAutoExport", true);
+            firefoxProfile.SetPreference("extensions.firebug.netexport.autoExportToFile", true);
+            firefoxProfile.SetPreference("extensions.firebug.netexport.autoExportToServer", false);
+            // firefoxProfile.SetPreference("extensions.firebug.netexport.beaconServerURL", "http://localhost/test/test.aspx"); // set this to send the har data to a remote server
+            firefoxProfile.SetPreference("extensions.firebug.netexport.showPreview", false); // Don't preview.
+            firefoxProfile.SetPreference("extensions.firebug.netexport.sendToConfirmation", false); // Don't ask for confirmation. This was seemeed to crash FF / Se when set to automatically run.
+            firefoxProfile.SetPreference("extensions.firebug.netexport.pageLoadedTimeout", 1500);
+
+
 
             return firefoxProfile;
         }
