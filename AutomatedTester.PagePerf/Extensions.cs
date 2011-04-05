@@ -27,7 +27,7 @@ namespace AutomatedTester.PagePerf
         public static Dictionary<string,object> WebTimings(this IWebDriver driver)
         {
             var webTiming = (Dictionary<string, object>)((IJavaScriptExecutor)driver)
-                .ExecuteScript(@"var performance = window.performance || window.webkitPerformance || window.mozPerformance || window.msPerformance || {};
+                .ExecuteScript(@"var performance = window.performance || {};
                                  var timings = performance.timing || {};
                                  return timings;");
             return webTiming;
